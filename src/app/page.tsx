@@ -4,6 +4,10 @@ import Footer from '@/components/Footer'
 import MarqueeStrip from '@/components/MarqueeStrip'
 import Cursor from '@/components/Cursor'
 import Link from 'next/link'
+import ShowcaseGrid from '@/components/ShowcaseGrid'
+import { createClient } from '@/lib/supabase/server'
+
+export const revalidate = 60
 
 const ThreeCanvas = dynamic(() => import('@/components/ThreeCanvas'), { ssr: false })
 
@@ -51,7 +55,13 @@ const SECTORS = [
   { icon: '🚢', name: 'Logistics & Trade', desc: 'Route optimisation, customs AI, trade intelligence' },
 ]
 
-export default function Home() {
+export default async function Home() {
+  const supabase = await createClient()
+  const { data: showcases } = await (supabase.from('showcases') as any)
+    .select('*')
+    .eq('published', true)
+    .order('sort_order', { ascending: true })
+
   return (
     <>
       <Cursor />
@@ -239,6 +249,20 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* AI IN ACTION */}
+      <section id="showcase" className="bg-black px-12 py-[120px]">
+        <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
+          <span className="block w-6 h-px bg-gold" />AI in Action
+        </div>
+        <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
+          What We&apos;ve Built
+        </h2>
+        <p className="text-muted text-[0.9rem] leading-[1.7] max-w-[480px] mt-5">
+          Real AI products and experiences — apps, agents, and generative media — delivered for our clients.
+        </p>
+        <ShowcaseGrid showcases={showcases ?? []} />
       </section>
 
       {/* CTA BAND */}
