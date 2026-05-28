@@ -5,6 +5,7 @@ import MarqueeStrip from '@/components/MarqueeStrip'
 import Cursor from '@/components/Cursor'
 import Link from 'next/link'
 import ShowcaseGrid from '@/components/ShowcaseGrid'
+import FadeIn from '@/components/FadeIn'
 import { createClient } from '@/lib/supabase/server'
 
 export const revalidate = 60
@@ -93,10 +94,10 @@ export default async function Home() {
             ELIV8 LYF FZE partners with forward-thinking organisations to deploy AI strategies that drive measurable outcomes — from automation to enterprise transformation.
           </p>
           <div className="flex gap-5 flex-wrap">
-            <Link href="/contact" className="inline-flex items-center gap-2.5 px-9 py-4 bg-gold text-black font-syne font-bold text-[0.9rem] tracking-[0.04em] transition-all hover:bg-gold-light hover:-translate-y-0.5">
+            <Link href="/contact" className="inline-flex items-center gap-2.5 px-11 py-[18px] bg-gold text-black font-syne font-bold text-[0.95rem] tracking-[0.04em] shadow-[0_0_32px_rgba(201,168,76,0.25)] transition-all hover:bg-gold-light hover:-translate-y-0.5">
               Book a Consultation →
             </Link>
-            <Link href="/services" className="inline-flex items-center gap-2.5 px-9 py-4 border border-white/[0.07] text-cream text-[0.9rem] tracking-[0.04em] transition-all hover:border-cream hover:-translate-y-0.5">
+            <Link href="/services" className="inline-flex items-center gap-2.5 px-8 py-[17px] border border-white/[0.12] text-muted text-[0.85rem] tracking-[0.04em] transition-all hover:border-white/40 hover:text-cream hover:-translate-y-0.5">
               Our Services
             </Link>
           </div>
@@ -111,7 +112,7 @@ export default async function Home() {
 
       {/* ABOUT */}
       <section id="about" className="bg-off-black px-12 py-[120px] grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-        <div>
+        <FadeIn>
           <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
             <span className="block w-6 h-px bg-gold" />Who We Are
           </div>
@@ -131,8 +132,8 @@ export default async function Home() {
               </div>
             ))}
           </div>
-        </div>
-        <div>
+        </FadeIn>
+        <FadeIn delay={150}>
           <p className="text-muted leading-[1.8] mb-5 text-[1rem]">
             <strong className="text-cream font-medium">ELIV8 LYF FZE</strong> is an AI consulting firm incorporated in the UAE Free Zone, built to serve ambitious organisations across emerging and established markets.
           </p>
@@ -145,12 +146,12 @@ export default async function Home() {
           <Link href="/services" className="inline-flex items-center gap-2.5 px-9 py-4 bg-gold text-black font-syne font-bold text-[0.9rem] tracking-[0.04em] transition-all hover:bg-gold-light">
             Explore Services →
           </Link>
-        </div>
+        </FadeIn>
       </section>
 
       {/* SERVICES */}
       <section id="services" className="bg-black px-12 py-[120px]">
-        <div className="flex justify-between items-end mb-16 flex-wrap gap-6">
+        <FadeIn className="flex justify-between items-end mb-16 flex-wrap gap-6">
           <div>
             <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
               <span className="block w-6 h-px bg-gold" />What We Do
@@ -162,7 +163,7 @@ export default async function Home() {
           <p className="text-muted max-w-[320px] text-[0.9rem] leading-[1.7]">
             From strategy through deployment — we cover the full AI value chain for your organisation.
           </p>
-        </div>
+        </FadeIn>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0.5">
           {SERVICES.map(s => (
             <div
@@ -186,12 +187,14 @@ export default async function Home() {
 
       {/* PROCESS */}
       <section id="process" className="bg-off-black px-12 py-[120px]">
+        <FadeIn>
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />How We Work
         </div>
         <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
           Our engagement<br />methodology
         </h2>
+        </FadeIn>
         <div className="mt-18 flex flex-col">
           {[
             { num: '01', title: 'Discovery & Diagnosis', sub: 'Weeks 1–2', desc: 'We immerse in your business — mapping processes, data assets, team capabilities, and competitive landscape to identify where AI creates the most leverage.' },
@@ -216,12 +219,14 @@ export default async function Home() {
 
       {/* WHY */}
       <section id="why" className="bg-black px-12 py-[120px]">
+        <FadeIn>
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Why ELIV8 LYF
         </div>
         <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
           Built different,<br />for complex markets
         </h2>
+        </FadeIn>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5 mt-16">
           {[
             { icon: '🌍', title: 'Emerging Market Expertise', desc: "We understand the infrastructure, regulatory, and cultural realities of African and Middle Eastern markets — not just Silicon Valley playbooks." },
@@ -242,10 +247,12 @@ export default async function Home() {
 
       {/* SECTORS */}
       <section id="sectors" className="bg-off-black px-12 py-[120px]">
+        <FadeIn>
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Industries
         </div>
         <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">Sectors we serve</h2>
+        </FadeIn>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0.5 mt-16">
           {SECTORS.map(s => (
             <div key={s.name} className="bg-panel border border-white/[0.07] p-9 transition-all hover:bg-gold-dim hover:border-gold/40 group">
@@ -259,6 +266,7 @@ export default async function Home() {
 
       {/* AI IN ACTION */}
       <section id="showcase" className="bg-black px-12 py-[120px]">
+        <FadeIn>
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />AI in Action
         </div>
@@ -268,6 +276,7 @@ export default async function Home() {
         <p className="text-muted text-[0.9rem] leading-[1.7] max-w-[480px] mt-5">
           Real AI products and experiences — apps, agents, and generative media — delivered for our clients.
         </p>
+        </FadeIn>
         <ShowcaseGrid showcases={showcases ?? []} />
       </section>
 
