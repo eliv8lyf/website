@@ -56,11 +56,17 @@ const SECTORS = [
 ]
 
 export default async function Home() {
-  const supabase = await createClient()
-  const { data: showcases } = await (supabase.from('showcases') as any)
-    .select('*')
-    .eq('published', true)
-    .order('sort_order', { ascending: true })
+  let showcases: any[] = []
+  try {
+    const supabase = await createClient()
+    const { data } = await (supabase.from('showcases') as any)
+      .select('*')
+      .eq('published', true)
+      .order('sort_order', { ascending: true })
+    showcases = data ?? []
+  } catch {
+    showcases = []
+  }
 
   return (
     <>
