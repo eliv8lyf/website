@@ -26,6 +26,7 @@ export default function Nav() {
         {[
           ['About', '/#about'],
           ['Services', '/services'],
+          ['AI in Action', '/#showcase'],
           ['Blog', '/blog'],
           ['Contact', '/contact'],
         ].map(([label, href]) => (
