@@ -78,7 +78,7 @@ export default async function Home() {
       <section id="hero" className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
         <ThreeCanvas />
         <div className="absolute inset-0 z-10" style={{ background: 'radial-gradient(ellipse 60% 80% at 70% 50%, transparent 30%, #050608 100%)' }} />
-        <div className="relative z-20 px-12 max-w-[780px]">
+        <div className="relative z-20 px-6 md:px-12 max-w-[780px]">
           <div className="inline-flex items-center gap-3 text-gold text-[0.75rem] tracking-[0.2em] uppercase mb-8 font-medium">
             <span className="block w-8 h-px bg-gold" />
             AI Consulting · UAE FZE · Global Reach
@@ -111,7 +111,7 @@ export default async function Home() {
       <MarqueeStrip />
 
       {/* ABOUT */}
-      <section id="about" className="bg-off-black px-12 py-[120px] grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+      <section id="about" className="bg-off-black px-6 md:px-12 py-20 md:py-[120px] grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20 items-center">
         <FadeIn>
           <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
             <span className="block w-6 h-px bg-gold" />Who We Are
@@ -150,8 +150,8 @@ export default async function Home() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="bg-black px-12 py-[120px]">
-        <FadeIn className="flex justify-between items-end mb-16 flex-wrap gap-6">
+      <section id="services" className="bg-black px-6 md:px-12 py-20 md:py-[120px]">
+        <FadeIn className="flex flex-col md:flex-row justify-between md:items-end mb-12 md:mb-16 gap-6">
           <div>
             <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
               <span className="block w-6 h-px bg-gold" />What We Do
@@ -168,7 +168,7 @@ export default async function Home() {
           {SERVICES.map(s => (
             <div
               key={s.num}
-              className="bg-panel border border-white/[0.07] p-12 relative overflow-hidden group transition-colors hover:border-gold/30"
+              className="bg-panel border border-white/[0.07] p-7 md:p-12 relative overflow-hidden group transition-colors hover:border-gold/30"
             >
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
               <span className="absolute top-8 right-9 font-syne text-[0.7rem] text-muted tracking-[0.1em]">{s.num}</span>
@@ -186,7 +186,7 @@ export default async function Home() {
       </section>
 
       {/* PROCESS */}
-      <section id="process" className="bg-off-black px-12 py-[120px]">
+      <section id="process" className="bg-off-black px-6 md:px-12 py-20 md:py-[120px]">
         <FadeIn>
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />How We Work
@@ -204,9 +204,9 @@ export default async function Home() {
           ].map((step, i, arr) => (
             <div
               key={step.num}
-              className={`grid grid-cols-[80px_1fr_1fr] gap-12 items-start py-12 border-b border-white/[0.07] ${i === 0 ? 'border-t' : ''}`}
+              className={`grid grid-cols-1 md:grid-cols-[80px_1fr_1fr] gap-4 md:gap-12 items-start py-10 md:py-12 border-b border-white/[0.07] ${i === 0 ? 'border-t' : ''}`}
             >
-              <div className="font-syne font-extrabold text-[3.5rem] text-white/[0.07] leading-none tracking-[-0.04em]">{step.num}</div>
+              <div className="font-syne font-extrabold text-[2rem] md:text-[3.5rem] text-white/[0.07] leading-none tracking-[-0.04em]">{step.num}</div>
               <div>
                 <div className="font-syne font-bold text-[1.4rem] text-cream mb-2">{step.title}</div>
                 <div className="text-gold text-[0.78rem] tracking-[0.1em] uppercase">{step.sub}</div>
@@ -218,7 +218,7 @@ export default async function Home() {
       </section>
 
       {/* WHY */}
-      <section id="why" className="bg-black px-12 py-[120px]">
+      <section id="why" className="bg-black px-6 md:px-12 py-20 md:py-[120px]">
         <FadeIn>
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Why ELIV8 LYF
@@ -234,7 +234,7 @@ export default async function Home() {
             { icon: '🔬', title: 'Technical Depth', desc: "Our consultants build what they recommend. No middlemen — just engineers and strategists who've shipped real AI systems at scale." },
             { icon: '🏛️', title: 'UAE FZE Credibility', desc: "Incorporated in the UAE Free Zone — giving clients international contracting capability, regulatory clarity, and institutional confidence." },
           ].map(w => (
-            <div key={w.title} className="bg-panel border border-white/[0.07] p-12 flex gap-7">
+            <div key={w.title} className="bg-panel border border-white/[0.07] p-7 md:p-12 flex gap-5 md:gap-7">
               <div className="flex-shrink-0 w-13 h-13 bg-gold-dim border border-gold/30 flex items-center justify-center text-[1.4rem] w-[52px] h-[52px]">{w.icon}</div>
               <div>
                 <h3 className="font-syne font-bold text-[1.05rem] mb-2.5 text-cream">{w.title}</h3>
@@ -246,7 +246,7 @@ export default async function Home() {
       </section>
 
       {/* SECTORS */}
-      <section id="sectors" className="bg-off-black px-12 py-[120px]">
+      <section id="sectors" className="bg-off-black px-6 md:px-12 py-20 md:py-[120px]">
         <FadeIn>
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Industries
@@ -265,7 +265,7 @@ export default async function Home() {
       </section>
 
       {/* AI IN ACTION */}
-      <section id="showcase" className="bg-black px-12 py-[120px]">
+      <section id="showcase" className="bg-black px-6 md:px-12 py-20 md:py-[120px]">
         <FadeIn>
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />AI in Action
@@ -281,7 +281,7 @@ export default async function Home() {
       </section>
 
       {/* CTA BAND */}
-      <div className="bg-gold px-12 py-[100px] flex items-center justify-between gap-10 flex-wrap">
+      <div className="bg-gold px-6 md:px-12 py-16 md:py-[100px] flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         <div>
           <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3rem)] text-black leading-tight">Ready to build your AI advantage?</h2>
           <p className="text-black/65 mt-3 text-[1rem]">Book a no-obligation discovery call with our team.</p>
