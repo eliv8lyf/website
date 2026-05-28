@@ -88,33 +88,10 @@ export default function ThreeCanvas() {
         </div>
       </div>
 
-      {/* ── MOBILE (< lg): compact hub + 2×3 service grid centred at bottom ── */}
-      <div className="lg:hidden absolute left-0 right-0 bottom-[72px] flex flex-col items-center gap-4 px-6">
-        {/* Mini hub */}
-        <div className={`flex items-center gap-2.5 transition-all duration-500 ${on ? 'opacity-100' : 'opacity-0'}`}>
-          <div className="w-[1px] flex-1 bg-gold/20" />
-          <div className="w-10 h-10 rounded-full bg-[#060708] border border-gold/45 flex flex-col items-center justify-center">
-            <span className="font-syne font-bold text-gold text-[0.48rem] tracking-widest">CORE</span>
-          </div>
-          <div className="w-[1px] flex-1 bg-gold/20" />
-        </div>
-
-        {/* 2×3 grid */}
-        <div className="grid grid-cols-3 gap-1.5 w-full">
-          {NODES.map((n, i) => (
-            <div key={i}
-              className="bg-[#09090c]/80 border border-white/[0.07] px-2 py-2 text-center"
-              style={{
-                opacity: on ? 0.85 : 0,
-                transform: on ? 'translateY(0)' : 'translateY(6px)',
-                transition: `opacity 0.4s ease ${i * 55}ms, transform 0.4s ease ${i * 55}ms`,
-              }}>
-              <div className="text-gold/40 text-[0.5rem] tracking-widest">{n.num}</div>
-              <div className="font-syne font-semibold text-cream text-[0.65rem] leading-tight mt-0.5">{n.title}</div>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* ── MOBILE (< lg): subtle atmospheric gradient only — no structural elements ── */}
+      <div className="lg:hidden absolute inset-0" style={{
+        background: 'radial-gradient(ellipse 90% 55% at 80% 45%, rgba(26,107,90,0.18) 0%, transparent 65%), radial-gradient(ellipse 55% 40% at 90% 25%, rgba(201,168,76,0.09) 0%, transparent 55%)',
+      }} />
 
     </div>
   )
