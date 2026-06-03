@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { formatDate } from '@/lib/utils'
 import { notFound } from 'next/navigation'
-import DOMPurify from 'isomorphic-dompurify'
 import type { Metadata } from 'next'
 
 export const revalidate = 60
@@ -43,8 +42,9 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound()
 
-  let safeContent = ''
+  let safeContent = post.content ?? ''
   try {
+    const DOMPurify = (await import('isomorphic-dompurify')).default
     safeContent = DOMPurify.sanitize(post.content ?? '', {
       ALLOWED_TAGS: ['h1','h2','h3','h4','p','ul','ol','li','strong','em','a','blockquote','code','pre','img','br'],
       ALLOWED_ATTR: ['href','src','alt','class','target','rel'],
