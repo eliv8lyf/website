@@ -43,10 +43,15 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound()
 
-  const safeContent = DOMPurify.sanitize(post.content ?? '', {
-    ALLOWED_TAGS: ['h1','h2','h3','h4','p','ul','ol','li','strong','em','a','blockquote','code','pre','img','br'],
-    ALLOWED_ATTR: ['href','src','alt','class','target','rel'],
-  })
+  let safeContent = ''
+  try {
+    safeContent = DOMPurify.sanitize(post.content ?? '', {
+      ALLOWED_TAGS: ['h1','h2','h3','h4','p','ul','ol','li','strong','em','a','blockquote','code','pre','img','br'],
+      ALLOWED_ATTR: ['href','src','alt','class','target','rel'],
+    })
+  } catch {
+    safeContent = post.content ?? ''
+  }
 
   const cat = post.categories as { name: string; slug: string } | null
 
