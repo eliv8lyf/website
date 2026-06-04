@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createServiceClient } from '@/lib/supabase/server'
+import { createClient } from '@/lib/supabase/server'
 
 export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null)
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid email address.' }, { status: 422 })
   }
 
-  const supabase = await createServiceClient()
+  const supabase = await createClient()
 
   const { error } = await supabase.from('leads').insert({
     first_name: String(first_name).slice(0, 100),
