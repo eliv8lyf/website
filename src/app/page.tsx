@@ -6,8 +6,27 @@ import Cursor from '@/components/Cursor'
 import Link from 'next/link'
 import ShowcaseGrid from '@/components/ShowcaseGrid'
 import { createClient } from '@/lib/supabase/server'
+import type { Metadata } from 'next'
+import { getPageSeo, SITE_URL } from '@/lib/seo'
 
 export const revalidate = 60
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo('home')
+  const title = seo.title ?? 'ELIV8 LYF FZE — AI Consulting for the Middle East & Africa'
+  const description = seo.description ?? 'AI strategy, implementation and transformation for ambitious organisations. Middle East · Africa · Global.'
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: SITE_URL,
+      ...(seo.ogImage ? { images: [{ url: seo.ogImage, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: { title, description },
+  }
+}
 
 const ThreeCanvas = dynamic(() => import('@/components/ThreeCanvas'), { ssr: false })
 
@@ -42,8 +61,16 @@ export default async function Home() {
   const sectors = sectorsData ?? []
   const showcases = showcasesData ?? []
 
+  const websiteJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'ELIV8 LYF FZE',
+    url: SITE_URL,
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }} />
       <Cursor />
       <NavWrapper />
 

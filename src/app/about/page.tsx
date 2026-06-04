@@ -4,9 +4,26 @@ import Cursor from '@/components/Cursor'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { getPageSeo, SITE_URL } from '@/lib/seo'
 
 export const revalidate = 60
-export const metadata: Metadata = { title: 'About — ELIV8 LYF FZE' }
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo('about')
+  const title = seo.title ?? 'About'
+  const description = seo.description ?? 'AI-native consulting for a new era of business. Learn who we are, what drives us, and how we work.'
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo.title ?? 'About — ELIV8 LYF FZE',
+      description,
+      url: `${SITE_URL}/about`,
+      ...(seo.ogImage ? { images: [{ url: seo.ogImage, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: { title, description },
+  }
+}
 
 export default async function AboutPage() {
   const supabase = await createClient()

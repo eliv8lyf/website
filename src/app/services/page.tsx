@@ -4,9 +4,26 @@ import Cursor from '@/components/Cursor'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { getPageSeo, SITE_URL } from '@/lib/seo'
 
 export const revalidate = 60
-export const metadata: Metadata = { title: 'Services — ELIV8 LYF FZE' }
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo('services')
+  const title = seo.title ?? 'Services'
+  const description = seo.description ?? 'End-to-end AI consulting — strategy, implementation, generative AI, and change management.'
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo.title ?? 'Services — ELIV8 LYF FZE',
+      description,
+      url: `${SITE_URL}/services`,
+      ...(seo.ogImage ? { images: [{ url: seo.ogImage, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: { title, description },
+  }
+}
 
 export default async function ServicesPage() {
   const supabase = await createClient()
@@ -20,8 +37,25 @@ export default async function ServicesPage() {
   ;(textRows ?? []).forEach((r: { key: string; value: string }) => { t[r.key] = r.value })
   const services = servicesData ?? []
 
+  const servicesJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'AI Consulting Services — ELIV8 LYF FZE',
+    itemListElement: services.map((s: any, i: number) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Service',
+        name: s.title,
+        description: s.description,
+        provider: { '@type': 'Organization', name: 'ELIV8 LYF FZE', url: SITE_URL },
+      },
+    })),
+  }
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesJsonLd) }} />
       <Cursor />
       <NavWrapper />
 

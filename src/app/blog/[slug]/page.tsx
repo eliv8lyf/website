@@ -144,18 +144,24 @@ export default async function BlogPostPage({ params }: Props) {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     headline: post.title,
     description: post.excerpt,
     datePublished: post.published_at,
     dateModified: post.published_at,
+    author: {
+      '@type': 'Organization',
+      name: 'ELIV8 LYF FZE',
+      url: SITE_URL,
+    },
     publisher: {
       '@type': 'Organization',
       name: 'ELIV8 LYF FZE',
       url: SITE_URL,
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/blog/${slug}` },
-    ...(post.cover_image ? { image: post.cover_image } : {}),
+    ...(post.cover_image ? { image: { '@type': 'ImageObject', url: post.cover_image } } : {}),
+    ...(cat ? { articleSection: cat.name } : {}),
   }
 
   return (

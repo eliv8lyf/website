@@ -4,9 +4,26 @@ import Cursor from '@/components/Cursor'
 import ContactForm from '@/components/ContactForm'
 import type { Metadata } from 'next'
 import { createClient } from '@/lib/supabase/server'
+import { getPageSeo, SITE_URL } from '@/lib/seo'
 
 export const revalidate = 60
-export const metadata: Metadata = { title: 'Contact — ELIV8 LYF FZE' }
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo('contact')
+  const title = seo.title ?? 'Contact'
+  const description = seo.description ?? "Let's talk about your AI opportunity. Get in touch with the ELIV8 LYF FZE team."
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo.title ?? 'Contact — ELIV8 LYF FZE',
+      description,
+      url: `${SITE_URL}/contact`,
+      ...(seo.ogImage ? { images: [{ url: seo.ogImage, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: { title, description },
+  }
+}
 
 export default async function ContactPage() {
   const supabase = await createClient()

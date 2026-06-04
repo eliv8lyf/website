@@ -4,12 +4,26 @@ import Cursor from '@/components/Cursor'
 import BlogListing from '@/components/BlogListing'
 import { createClient } from '@/lib/supabase/server'
 import type { Metadata } from 'next'
+import { getPageSeo, SITE_URL } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: 'Blog — ELIV8 LYF FZE',
-  description: 'AI strategy, implementation insights, and the future of work from the team at ELIV8 LYF.',
-}
 export const revalidate = 60
+
+export async function generateMetadata(): Promise<Metadata> {
+  const seo = await getPageSeo('blog')
+  const title = seo.title ?? 'Blog'
+  const description = seo.description ?? 'AI strategy, implementation insights, and the future of work from the team at ELIV8 LYF.'
+  return {
+    title,
+    description,
+    openGraph: {
+      title: seo.title ?? 'Blog — ELIV8 LYF FZE',
+      description,
+      url: `${SITE_URL}/blog`,
+      ...(seo.ogImage ? { images: [{ url: seo.ogImage, width: 1200, height: 630 }] } : {}),
+    },
+    twitter: { title, description },
+  }
+}
 
 export default async function BlogPage() {
   const supabase = await createClient()

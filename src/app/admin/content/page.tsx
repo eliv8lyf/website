@@ -3,7 +3,7 @@
 import { useEffect, useState, useCallback } from 'react'
 import { createClient } from '@/lib/supabase/client'
 
-type Tab = 'hero' | 'about' | 'process' | 'why' | 'sectors' | 'stats' | 'cta' | 'footer' | 'pages'
+type Tab = 'hero' | 'about' | 'process' | 'why' | 'sectors' | 'stats' | 'cta' | 'footer' | 'pages' | 'seo'
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'hero', label: 'Hero' },
@@ -15,6 +15,7 @@ const TABS: { id: Tab; label: string }[] = [
   { id: 'cta', label: 'CTA Band' },
   { id: 'footer', label: 'Footer' },
   { id: 'pages', label: 'Pages' },
+  { id: 'seo', label: 'SEO / AEO' },
 ]
 
 const inputCls = 'w-full bg-[#0c0d10] border border-white/[0.07] px-4 py-2.5 text-white text-sm focus:outline-none focus:border-[#c9a84c]/50'
@@ -373,6 +374,28 @@ export default function ContentPage() {
                 { key: 'contact_operations_value', label: 'Operations Value' },
               ]} />
             </div>
+          </div>
+        )}
+
+        {tab === 'seo' && (
+          <div className="flex flex-col gap-10">
+            <p className="text-white/30 text-xs -mt-2">These fields control what appears in Google results, social link previews, and AI answer engines. Leave blank to use the default text.</p>
+            {[
+              { page: 'home',     label: 'Home Page' },
+              { page: 'services', label: 'Services Page' },
+              { page: 'about',    label: 'About Page' },
+              { page: 'contact',  label: 'Contact Page' },
+              { page: 'blog',     label: 'Blog Listing Page' },
+            ].map(({ page, label }) => (
+              <div key={page}>
+                <div className={sectionHead}>{label}</div>
+                <TextSection section="seo" fields={[
+                  { key: `seo_${page}_title`,       label: 'Meta Title (shown in Google — keep under 60 chars)' },
+                  { key: `seo_${page}_description`, label: 'Meta Description (shown in Google — keep under 155 chars)', multiline: true },
+                  { key: `seo_${page}_og_image`,    label: 'OG Image URL (1200×630px — for social link previews)' },
+                ]} />
+              </div>
+            ))}
           </div>
         )}
       </div>
