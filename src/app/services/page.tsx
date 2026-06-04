@@ -43,7 +43,7 @@ export default async function ServicesPage() {
             <div>
               <div className="flex items-center gap-4 mb-6">
                 <div className="w-12 h-12 border border-white/[0.07] flex items-center justify-center text-[1.4rem] bg-gold-dim">{s.icon}</div>
-                <span className="font-syne text-[0.7rem] text-muted tracking-[0.1em]">{s.num}</span>
+                <span className="font-syne text-[0.7rem] text-gold/50 tracking-[0.1em]">{s.num}</span>
               </div>
               <h2 className="font-syne font-bold text-[1.8rem] text-cream mb-5 leading-tight">{s.title}</h2>
               <p className="text-muted text-[0.9rem] leading-[1.8]">{s.description}</p>

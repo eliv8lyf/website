@@ -130,7 +130,7 @@ export default async function Home() {
           {services.map((s: any) => (
             <div key={s.id} className="bg-panel border border-white/[0.07] p-7 md:p-12 relative overflow-hidden group transition-colors hover:border-gold/30">
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
-              <span className="absolute top-8 right-9 font-syne text-[0.7rem] text-muted tracking-[0.1em]">{s.num}</span>
+              <span className="absolute top-8 right-9 font-syne text-[0.7rem] text-gold/50 tracking-[0.1em]">{s.num}</span>
               <div className="w-12 h-12 border border-white/[0.07] flex items-center justify-center mb-7 text-[1.4rem] bg-gold-dim">{s.icon}</div>
               <h3 className="font-syne font-bold text-[1.2rem] mb-4 text-cream">{s.title}</h3>
               <p className="text-muted text-[0.88rem] leading-[1.75]">{s.description}</p>
