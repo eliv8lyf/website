@@ -77,7 +77,7 @@ export default async function Home() {
       <section id="hero" className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
         <ThreeCanvas />
         <div className="absolute inset-0 z-10" style={{ background: 'radial-gradient(ellipse 60% 80% at 70% 50%, transparent 30%, #050608 100%)' }} />
-        <div className="relative z-20 px-12 max-w-[780px]">
+        <div className="relative z-20 px-6 md:px-12 max-w-[780px]">
           <div className="inline-flex items-center gap-3 text-gold text-[0.75rem] tracking-[0.2em] uppercase mb-8 font-medium">
             <span className="block w-8 h-px bg-gold" />
             AI Consulting · UAE FZE · Global Reach
@@ -110,7 +110,7 @@ export default async function Home() {
       <MarqueeStrip />
 
       {/* ABOUT */}
-      <section id="about" className="bg-off-black px-12 py-[120px] grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+      <section id="about" className="bg-off-black px-6 md:px-12 py-16 md:py-[120px] grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
         <div>
           <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
             <span className="block w-6 h-px bg-gold" />Who We Are
@@ -149,7 +149,7 @@ export default async function Home() {
       </section>
 
       {/* SERVICES */}
-      <section id="services" className="bg-black px-12 py-[120px]">
+      <section id="services" className="bg-black px-6 md:px-12 py-16 md:py-[120px]">
         <div className="flex justify-between items-end mb-16 flex-wrap gap-6">
           <div>
             <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
@@ -185,7 +185,7 @@ export default async function Home() {
       </section>
 
       {/* PROCESS */}
-      <section id="process" className="bg-off-black px-12 py-[120px]">
+      <section id="process" className="bg-off-black px-6 md:px-12 py-16 md:py-[120px]">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />How We Work
         </div>
@@ -201,7 +201,7 @@ export default async function Home() {
           ].map((step, i, arr) => (
             <div
               key={step.num}
-              className={`grid grid-cols-[80px_1fr_1fr] gap-12 items-start py-12 border-b border-white/[0.07] ${i === 0 ? 'border-t' : ''}`}
+              className={`grid grid-cols-1 md:grid-cols-[80px_1fr_1fr] gap-4 md:gap-12 items-start py-8 md:py-12 border-b border-white/[0.07] ${i === 0 ? 'border-t' : ''}`}
             >
               <div className="font-syne font-extrabold text-[3.5rem] text-white/[0.07] leading-none tracking-[-0.04em]">{step.num}</div>
               <div>
@@ -215,7 +215,7 @@ export default async function Home() {
       </section>
 
       {/* WHY */}
-      <section id="why" className="bg-black px-12 py-[120px]">
+      <section id="why" className="bg-black px-6 md:px-12 py-16 md:py-[120px]">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Why ELIV8 LYF
         </div>
@@ -241,7 +241,7 @@ export default async function Home() {
       </section>
 
       {/* SECTORS */}
-      <section id="sectors" className="bg-off-black px-12 py-[120px]">
+      <section id="sectors" className="bg-off-black px-6 md:px-12 py-16 md:py-[120px]">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Industries
         </div>
@@ -274,7 +274,7 @@ export default async function Home() {
       </section>
 
       {/* CTA BAND */}
-      <div className="bg-gold px-12 py-[100px] flex items-center justify-between gap-10 flex-wrap">
+      <div className="bg-gold px-6 md:px-12 py-16 md:py-[100px] flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-10">
         <div>
           <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3rem)] text-black leading-tight">Ready to build your AI advantage?</h2>
           <p className="text-black/65 mt-3 text-[1rem]">Book a no-obligation discovery call with our team.</p>

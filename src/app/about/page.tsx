@@ -12,7 +12,7 @@ export default function AboutPage() {
       <Cursor />
       <Nav />
 
-      <div className="pt-[120px] px-12 pb-20 bg-black">
+      <div className="pt-[120px] px-6 md:px-12 pb-16 md:pb-20 bg-black">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Who We Are
         </div>
@@ -21,7 +21,7 @@ export default function AboutPage() {
         </h1>
       </div>
 
-      <section className="bg-off-black px-12 py-[80px] grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
+      <section className="bg-off-black px-6 md:px-12 py-12 md:py-[80px] grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
         <div>
           <p className="text-muted leading-[1.8] mb-5 text-[1rem]">
             <strong className="text-cream font-medium">ELIV8 LYF FZE</strong> is an AI consulting firm incorporated in the UAE Free Zone, purpose-built to serve ambitious organisations across emerging and established markets.
@@ -51,7 +51,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-black px-12 py-[80px]">
+      <section className="bg-black px-6 md:px-12 py-12 md:py-[80px]">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Our Edge
         </div>
@@ -76,7 +76,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <div className="bg-gold px-12 py-[80px] flex items-center justify-between gap-10 flex-wrap">
+      <div className="bg-gold px-6 md:px-12 py-12 md:py-[80px] flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-10">
         <div>
           <h2 className="font-syne font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] text-black leading-tight">Work with us</h2>
           <p className="text-black/65 mt-3">Let&apos;s explore what AI can do for your organisation.</p>

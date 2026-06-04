@@ -51,7 +51,7 @@ export default function ServicesPage() {
       <Cursor />
       <Nav />
 
-      <div className="pt-[120px] px-12 pb-20 bg-black">
+      <div className="pt-[120px] px-6 md:px-12 pb-16 md:pb-20 bg-black">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />What We Do
         </div>
@@ -67,7 +67,7 @@ export default function ServicesPage() {
         {SERVICES.map((s, i) => (
           <div
             key={s.num}
-            className={`px-12 py-[80px] border-b border-white/[0.07] grid grid-cols-1 md:grid-cols-2 gap-16 items-start ${i % 2 === 1 ? 'bg-black' : ''}`}
+            className={`px-6 md:px-12 py-12 md:py-[80px] border-b border-white/[0.07] grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start ${i % 2 === 1 ? 'bg-black' : ''}`}
           >
             <div>
               <div className="flex items-center gap-4 mb-6">
@@ -97,7 +97,7 @@ export default function ServicesPage() {
         ))}
       </div>
 
-      <div className="bg-gold px-12 py-[80px] flex items-center justify-between gap-10 flex-wrap">
+      <div className="bg-gold px-6 md:px-12 py-12 md:py-[80px] flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-10">
         <div>
           <h2 className="font-syne font-extrabold text-[clamp(1.8rem,3vw,2.6rem)] text-black leading-tight">Ready to get started?</h2>
           <p className="text-black/65 mt-3">Tell us about your challenge — we&apos;ll help you find the right approach.</p>

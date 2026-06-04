@@ -2,7 +2,7 @@ import Link from 'next/link'
 
 export default function Footer() {
   return (
-    <footer className="bg-off-black border-t border-white/[0.07] px-12 py-12 flex flex-wrap items-center justify-between gap-6">
+    <footer className="bg-off-black border-t border-white/[0.07] px-6 md:px-12 py-10 md:py-12 flex flex-wrap items-center justify-between gap-6">
       <div className="font-syne font-extrabold text-[1.1rem] text-cream">
         ELIV<span className="text-gold">8</span> LYF{' '}
         <span className="text-muted font-normal text-[0.7rem] ml-2 tracking-widest">FZE</span>
