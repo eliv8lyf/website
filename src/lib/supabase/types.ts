@@ -13,6 +13,7 @@ export interface Database {
           service: string | null
           message: string | null
           referral_source: string | null
+          ip_address: string | null
           status: string | null
           created_at: string | null
         }
@@ -27,6 +28,7 @@ export interface Database {
           service?: string | null
           message?: string | null
           referral_source?: string | null
+          ip_address?: string | null
           status?: string | null
           created_at?: string | null
         }
@@ -41,6 +43,7 @@ export interface Database {
           service?: string | null
           message?: string | null
           referral_source?: string | null
+          ip_address?: string | null
           status?: string | null
           created_at?: string | null
         }

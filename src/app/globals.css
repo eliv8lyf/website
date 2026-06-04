@@ -29,6 +29,14 @@ body {
   cursor: none;
 }
 
+.admin-layout, .admin-layout * {
+  cursor: auto !important;
+}
+
+.admin-layout button, .admin-layout a, .admin-layout [role="button"] {
+  cursor: pointer !important;
+}
+
 /* Tiptap prose styling */
 .prose-tiptap h1 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin: 2rem 0 1rem; color: #f0ede8; }
 .prose-tiptap h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 2rem 0 0.75rem; color: #f0ede8; }

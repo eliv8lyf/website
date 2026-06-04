@@ -23,6 +23,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid email address.' }, { status: 422 })
   }
 
+  const ip =
+    req.headers.get('x-forwarded-for')?.split(',')[0].trim() ??
+    req.headers.get('x-real-ip') ??
+    null
+
   const { error } = await (supabase.from('leads') as any).insert({
     first_name: String(first_name).slice(0, 100),
     last_name: String(last_name).slice(0, 100),
@@ -33,6 +38,7 @@ export async function POST(req: NextRequest) {
     service: service ? String(service).slice(0, 100) : null,
     message: message ? String(message).slice(0, 2000) : null,
     referral_source: referral_source ? String(referral_source).slice(0, 100) : null,
+    ip_address: ip ? String(ip).slice(0, 45) : null,
     status: 'new',
   })
 
