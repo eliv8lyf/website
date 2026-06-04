@@ -27,8 +27,8 @@ export default function ContactPage() {
             </p>
             {[
               { icon: '📍', label: 'Registered Office', value: 'UAE Free Zone (FZE)\nUnited Arab Emirates' },
-              { icon: '✉️', label: 'Email', value: 'hello@eliv8lyf.com' },
-              { icon: '🌐', label: 'Operations', value: 'Africa · Middle East · Global' },
+              { icon: '✉️', label: 'Email', value: 'connect@eliv8lyf.com' },
+              { icon: '🌐', label: 'Operations', value: 'Middle East · Africa · Global' },
             ].map(item => (
               <div key={item.label} className="flex gap-5 items-start mb-7">
                 <div className="w-10 h-10 flex-shrink-0 border border-white/[0.07] flex items-center justify-center text-[1rem] bg-panel">{item.icon}</div>

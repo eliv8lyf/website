@@ -9,7 +9,7 @@ export default function Footer() {
       </div>
       <div className="text-muted text-[0.78rem]">© 2025 ELIV8 LYF FZE. All rights reserved.</div>
       <div className="text-muted text-[0.75rem] tracking-widest">
-        Incorporated in the UAE Free Zone · AI Consulting
+        Incorporated in the UAE · AI Consulting
       </div>
     </footer>
   )
