@@ -117,6 +117,48 @@ export interface Database {
         }
         Relationships: []
       }
+      showcases: {
+        Row: {
+          id: string
+          title: string
+          description: string
+          category: 'app' | 'generative_media' | 'agent'
+          url: string | null
+          media_url: string | null
+          media_type: 'image' | 'video'
+          tags: string[] | null
+          published: boolean
+          sort_order: number
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          title: string
+          description: string
+          category: 'app' | 'generative_media' | 'agent'
+          url?: string | null
+          media_url?: string | null
+          media_type?: 'image' | 'video'
+          tags?: string[] | null
+          published?: boolean
+          sort_order?: number
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          title?: string
+          description?: string
+          category?: 'app' | 'generative_media' | 'agent'
+          url?: string | null
+          media_url?: string | null
+          media_type?: 'image' | 'video'
+          tags?: string[] | null
+          published?: boolean
+          sort_order?: number
+          created_at?: string | null
+        }
+        Relationships: []
+      }
       post_reactions: {
         Row: {
           id: string
@@ -157,3 +199,4 @@ export interface Database {
 export type Lead = Database['public']['Tables']['leads']['Row']
 export type Post = Database['public']['Tables']['posts']['Row']
 export type Category = Database['public']['Tables']['categories']['Row']
+export type Showcase = Database['public']['Tables']['showcases']['Row']

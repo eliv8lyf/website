@@ -6,6 +6,7 @@ import Link from 'next/link'
 const LINKS = [
   ['About', '/#about'],
   ['Services', '/services'],
+  ['AI in Action', '/#showcase'],
   ['Blog', '/blog'],
   ['Contact', '/contact'],
 ]
