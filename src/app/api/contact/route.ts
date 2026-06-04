@@ -5,7 +5,7 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null)
   if (!body) return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
 
-  const { first_name, last_name, email, organisation, service, message } = body
+  const { first_name, last_name, email, phone, organisation, country, service, message, referral_source } = body
 
   if (!first_name || !last_name || !email) {
     return NextResponse.json({ error: 'Name and email are required.' }, { status: 422 })
@@ -22,9 +22,12 @@ export async function POST(req: NextRequest) {
     first_name: String(first_name).slice(0, 100),
     last_name: String(last_name).slice(0, 100),
     email: String(email).slice(0, 254),
+    phone: phone ? String(phone).slice(0, 30) : null,
     organisation: organisation ? String(organisation).slice(0, 200) : null,
+    country: country ? String(country).slice(0, 100) : null,
     service: service ? String(service).slice(0, 100) : null,
     message: message ? String(message).slice(0, 2000) : null,
+    referral_source: referral_source ? String(referral_source).slice(0, 100) : null,
     status: 'new',
   })
 

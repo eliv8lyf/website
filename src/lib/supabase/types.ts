@@ -7,9 +7,12 @@ export interface Database {
           first_name: string | null
           last_name: string | null
           email: string | null
+          phone: string | null
           organisation: string | null
+          country: string | null
           service: string | null
           message: string | null
+          referral_source: string | null
           status: string | null
           created_at: string | null
         }
@@ -18,9 +21,12 @@ export interface Database {
           first_name?: string | null
           last_name?: string | null
           email?: string | null
+          phone?: string | null
           organisation?: string | null
+          country?: string | null
           service?: string | null
           message?: string | null
+          referral_source?: string | null
           status?: string | null
           created_at?: string | null
         }
@@ -29,9 +35,12 @@ export interface Database {
           first_name?: string | null
           last_name?: string | null
           email?: string | null
+          phone?: string | null
           organisation?: string | null
+          country?: string | null
           service?: string | null
           message?: string | null
+          referral_source?: string | null
           status?: string | null
           created_at?: string | null
         }

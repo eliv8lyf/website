@@ -12,15 +12,16 @@ export default function ContactPage() {
       <Cursor />
       <Nav />
 
-      <section className="bg-black pt-[120px] px-12 pb-[120px]">
+      <section className="bg-black pt-[120px] px-6 md:px-12 pb-20 md:pb-[120px]">
+        <div className="max-w-[1100px] mx-auto">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
           <span className="block w-6 h-px bg-gold" />Get In Touch
         </div>
-        <h1 className="font-syne font-extrabold text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-cream max-w-3xl mb-16">
+        <h1 className="font-syne font-extrabold text-[clamp(2rem,5vw,4.5rem)] leading-[1.05] tracking-[-0.02em] text-cream max-w-3xl mb-12 md:mb-16">
           Let&apos;s talk about your AI opportunity
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-20">
           <div>
             <p className="text-muted leading-[1.8] mb-10">
               Whether you have a specific project in mind or are just beginning to explore what AI can do for your organisation — we&apos;re here to help you think it through.
@@ -41,6 +42,7 @@ export default function ContactPage() {
           </div>
 
           <ContactForm />
+        </div>
         </div>
       </section>
 
