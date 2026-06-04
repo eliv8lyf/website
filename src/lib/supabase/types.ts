@@ -105,6 +105,27 @@ export interface Database {
         }
         Relationships: []
       }
+      post_reactions: {
+        Row: {
+          id: string
+          post_slug: string
+          emoji: string
+          created_at: string | null
+        }
+        Insert: {
+          id?: string
+          post_slug: string
+          emoji: string
+          created_at?: string | null
+        }
+        Update: {
+          id?: string
+          post_slug?: string
+          emoji?: string
+          created_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
