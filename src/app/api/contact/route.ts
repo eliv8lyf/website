@@ -5,7 +5,8 @@ export async function POST(req: NextRequest) {
   const body = await req.json().catch(() => null)
   if (!body) return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
 
-  const { first_name, last_name, email, phone, organisation, country, service, message, referral_source } = body
+  const { first_name, last_name, email, phone_code, phone_number, organisation, country, service, message, referral_source } = body
+  const phone = phone_number ? `${phone_code ?? ''}${phone_number}`.trim() : null
 
   if (!first_name || !last_name || !email) {
     return NextResponse.json({ error: 'Name and email are required.' }, { status: 422 })

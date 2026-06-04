@@ -21,6 +21,75 @@ const REFERRAL_SOURCES = [
   'Other',
 ]
 
+const COUNTRIES = [
+  // Middle East
+  'United Arab Emirates',
+  'Saudi Arabia',
+  'Qatar',
+  'Kuwait',
+  'Bahrain',
+  'Oman',
+  'Jordan',
+  'Egypt',
+  'Lebanon',
+  'Iraq',
+  // Africa
+  'Nigeria',
+  'South Africa',
+  'Kenya',
+  'Ghana',
+  'Ethiopia',
+  'Tanzania',
+  'Rwanda',
+  'Morocco',
+  'Tunisia',
+  'Senegal',
+  // Asia
+  'India',
+  'Pakistan',
+  'Bangladesh',
+  'Singapore',
+  'Malaysia',
+  'Philippines',
+  // Europe
+  'United Kingdom',
+  'Germany',
+  'France',
+  'Netherlands',
+  'Sweden',
+  // Americas
+  'United States',
+  'Canada',
+  'Brazil',
+  // Other
+  'Other',
+]
+
+const PHONE_CODES = [
+  { code: '+971', label: '+971 (UAE)' },
+  { code: '+966', label: '+966 (Saudi Arabia)' },
+  { code: '+974', label: '+974 (Qatar)' },
+  { code: '+965', label: '+965 (Kuwait)' },
+  { code: '+973', label: '+973 (Bahrain)' },
+  { code: '+968', label: '+968 (Oman)' },
+  { code: '+962', label: '+962 (Jordan)' },
+  { code: '+20',  label: '+20  (Egypt)' },
+  { code: '+961', label: '+961 (Lebanon)' },
+  { code: '+234', label: '+234 (Nigeria)' },
+  { code: '+27',  label: '+27  (South Africa)' },
+  { code: '+254', label: '+254 (Kenya)' },
+  { code: '+233', label: '+233 (Ghana)' },
+  { code: '+212', label: '+212 (Morocco)' },
+  { code: '+91',  label: '+91  (India)' },
+  { code: '+92',  label: '+92  (Pakistan)' },
+  { code: '+65',  label: '+65  (Singapore)' },
+  { code: '+44',  label: '+44  (UK)' },
+  { code: '+49',  label: '+49  (Germany)' },
+  { code: '+33',  label: '+33  (France)' },
+  { code: '+1',   label: '+1   (USA/Canada)' },
+  { code: '+61',  label: '+61  (Australia)' },
+]
+
 const MESSAGE_LIMIT = 1500
 
 export default function ContactForm() {
@@ -99,7 +168,23 @@ export default function ContactForm() {
         </div>
         <div className="flex flex-col gap-2">
           <label className={labelCls}>Mobile / WhatsApp</label>
-          <input name="phone" type="tel" placeholder="+971 50 000 0000" className={inputCls} />
+          <div className="flex">
+            <select
+              name="phone_code"
+              defaultValue="+971"
+              className="bg-panel border border-white/[0.07] border-r-0 text-cream text-[0.82rem] px-2 outline-none transition-colors focus:border-gold/60 appearance-none flex-shrink-0 w-[108px]"
+            >
+              {PHONE_CODES.map(p => (
+                <option key={p.code} value={p.code}>{p.label}</option>
+              ))}
+            </select>
+            <input
+              name="phone_number"
+              type="tel"
+              placeholder="50 000 0000"
+              className="bg-panel border border-white/[0.07] text-cream placeholder:text-cream/25 px-4 py-3.5 text-[0.9rem] outline-none w-full transition-colors focus:border-gold/60 min-w-0"
+            />
+          </div>
         </div>
       </div>
 
@@ -111,7 +196,12 @@ export default function ContactForm() {
         </div>
         <div className="flex flex-col gap-2">
           <label className={labelCls}>Country</label>
-          <input name="country" type="text" placeholder="UAE, Saudi Arabia, UK…" className={inputCls} />
+          <select name="country" className={inputCls} defaultValue="">
+            <option value="" disabled>Select your country</option>
+            {COUNTRIES.map(c => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </select>
         </div>
       </div>
 
