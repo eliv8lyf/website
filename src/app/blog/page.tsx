@@ -1,4 +1,4 @@
-import Nav from '@/components/Nav'
+import NavWrapper from '@/components/NavWrapper'
 import Footer from '@/components/Footer'
 import Cursor from '@/components/Cursor'
 import BlogListing from '@/components/BlogListing'
@@ -27,7 +27,7 @@ export default async function BlogPage() {
   return (
     <>
       <Cursor />
-      <Nav />
+      <NavWrapper />
 
       <div className="pt-[120px] px-6 md:px-12 pb-16 bg-black">
         <div className="max-w-[1100px] mx-auto">

@@ -1,4 +1,4 @@
-import Nav from '@/components/Nav'
+import NavWrapper from '@/components/NavWrapper'
 import Footer from '@/components/Footer'
 import Cursor from '@/components/Cursor'
 import ReadingProgress from '@/components/ReadingProgress'
@@ -162,7 +162,7 @@ export default async function BlogPostPage({ params }: Props) {
     <>
       <Cursor />
       <ReadingProgress />
-      <Nav />
+      <NavWrapper />
 
       <script
         type="application/ld+json"

@@ -10,6 +10,9 @@ const LINKS = [
   { href: '/admin/posts', label: 'Posts' },
   { href: '/admin/categories', label: 'Categories' },
   { href: '/admin/showcases', label: 'AI in Action' },
+  { href: '/admin/nav', label: 'Navigation' },
+  { href: '/admin/services', label: 'Services' },
+  { href: '/admin/content', label: 'Site Content' },
 ]
 
 export default function AdminNav() {

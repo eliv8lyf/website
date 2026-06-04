@@ -159,6 +159,48 @@ export interface Database {
         }
         Relationships: []
       }
+      nav_items: {
+        Row: { id: string; label: string; url: string; sort_order: number; is_cta: boolean; published: boolean; created_at: string | null }
+        Insert: { id?: string; label: string; url: string; sort_order?: number; is_cta?: boolean; published?: boolean; created_at?: string | null }
+        Update: { id?: string; label?: string; url?: string; sort_order?: number; is_cta?: boolean; published?: boolean; created_at?: string | null }
+        Relationships: []
+      }
+      services: {
+        Row: { id: string; num: string; icon: string; title: string; description: string; tags: string[] | null; deliverables: string[] | null; sort_order: number; published: boolean; created_at: string | null }
+        Insert: { id?: string; num: string; icon: string; title: string; description: string; tags?: string[] | null; deliverables?: string[] | null; sort_order?: number; published?: boolean; created_at?: string | null }
+        Update: { id?: string; num?: string; icon?: string; title?: string; description?: string; tags?: string[] | null; deliverables?: string[] | null; sort_order?: number; published?: boolean; created_at?: string | null }
+        Relationships: []
+      }
+      stats: {
+        Row: { id: string; value_text: string; label: string; sort_order: number; created_at: string | null }
+        Insert: { id?: string; value_text: string; label: string; sort_order?: number; created_at?: string | null }
+        Update: { id?: string; value_text?: string; label?: string; sort_order?: number; created_at?: string | null }
+        Relationships: []
+      }
+      process_steps: {
+        Row: { id: string; step_num: string; title: string; timeframe: string; description: string; sort_order: number; created_at: string | null }
+        Insert: { id?: string; step_num: string; title: string; timeframe: string; description: string; sort_order?: number; created_at?: string | null }
+        Update: { id?: string; step_num?: string; title?: string; timeframe?: string; description?: string; sort_order?: number; created_at?: string | null }
+        Relationships: []
+      }
+      why_cards: {
+        Row: { id: string; icon: string; title: string; description: string; sort_order: number; created_at: string | null }
+        Insert: { id?: string; icon: string; title: string; description: string; sort_order?: number; created_at?: string | null }
+        Update: { id?: string; icon?: string; title?: string; description?: string; sort_order?: number; created_at?: string | null }
+        Relationships: []
+      }
+      sectors: {
+        Row: { id: string; icon: string; name: string; description: string; sort_order: number; created_at: string | null }
+        Insert: { id?: string; icon: string; name: string; description: string; sort_order?: number; created_at?: string | null }
+        Update: { id?: string; icon?: string; name?: string; description?: string; sort_order?: number; created_at?: string | null }
+        Relationships: []
+      }
+      site_text: {
+        Row: { id: string; key: string; value: string; section: string; label: string; created_at: string | null }
+        Insert: { id?: string; key: string; value: string; section?: string; label?: string; created_at?: string | null }
+        Update: { id?: string; key?: string; value?: string; section?: string; label?: string; created_at?: string | null }
+        Relationships: []
+      }
       post_reactions: {
         Row: {
           id: string
@@ -200,3 +242,10 @@ export type Lead = Database['public']['Tables']['leads']['Row']
 export type Post = Database['public']['Tables']['posts']['Row']
 export type Category = Database['public']['Tables']['categories']['Row']
 export type Showcase = Database['public']['Tables']['showcases']['Row']
+export type NavItem = Database['public']['Tables']['nav_items']['Row']
+export type Service = Database['public']['Tables']['services']['Row']
+export type Stat = Database['public']['Tables']['stats']['Row']
+export type ProcessStep = Database['public']['Tables']['process_steps']['Row']
+export type WhyCard = Database['public']['Tables']['why_cards']['Row']
+export type Sector = Database['public']['Tables']['sectors']['Row']
+export type SiteText = Database['public']['Tables']['site_text']['Row']

@@ -2,18 +2,14 @@
 
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
+import type { NavItem } from '@/lib/supabase/types'
 
-const LINKS = [
-  ['About', '/#about'],
-  ['Services', '/services'],
-  ['AI in Action', '/#showcase'],
-  ['Blog', '/blog'],
-  ['Contact', '/contact'],
-]
-
-export default function Nav() {
+export default function Nav({ items }: { items: NavItem[] }) {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+
+  const links = items.filter(i => !i.is_cta).sort((a, b) => a.sort_order - b.sort_order)
+  const cta = items.find(i => i.is_cta)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 60)
@@ -41,28 +37,25 @@ export default function Nav() {
           ELIV<span className="text-gold">8</span> LYF
         </Link>
 
-        {/* Desktop links */}
         <ul className="hidden md:flex gap-10 list-none">
-          {LINKS.map(([label, href]) => (
-            <li key={href}>
-              <Link
-                href={href}
-                className="text-muted text-[0.85rem] tracking-[0.06em] font-normal transition-colors hover:text-cream"
-              >
-                {label}
+          {links.map(item => (
+            <li key={item.id}>
+              <Link href={item.url} className="text-muted text-[0.85rem] tracking-[0.06em] font-normal transition-colors hover:text-cream">
+                {item.label}
               </Link>
             </li>
           ))}
         </ul>
 
-        <Link
-          href="/contact"
-          className="hidden md:inline-flex px-6 py-2.5 border border-gold text-gold font-syne font-semibold text-[0.82rem] tracking-widest transition-colors hover:bg-gold hover:text-black"
-        >
-          Get Started →
-        </Link>
+        {cta && (
+          <Link
+            href={cta.url}
+            className="hidden md:inline-flex px-6 py-2.5 border border-gold text-gold font-syne font-semibold text-[0.82rem] tracking-widest transition-colors hover:bg-gold hover:text-black"
+          >
+            {cta.label}
+          </Link>
+        )}
 
-        {/* Hamburger */}
         <button
           onClick={() => setOpen(o => !o)}
           aria-label="Toggle menu"
@@ -74,26 +67,27 @@ export default function Nav() {
         </button>
       </nav>
 
-      {/* Mobile drawer — outside <nav> to avoid stacking context issues with hero canvas */}
       {open && (
         <div className="md:hidden fixed inset-0 z-40 bg-black flex flex-col px-8 pt-28 pb-10 gap-6 overflow-y-auto">
-          {LINKS.map(([label, href]) => (
+          {links.map(item => (
             <Link
-              key={href}
-              href={href}
+              key={item.id}
+              href={item.url}
               onClick={() => setOpen(false)}
               className="font-syne font-bold text-[2rem] text-cream tracking-[-0.01em] hover:text-gold transition-colors border-b border-white/[0.06] pb-6"
             >
-              {label}
+              {item.label}
             </Link>
           ))}
-          <Link
-            href="/contact"
-            onClick={() => setOpen(false)}
-            className="mt-4 inline-flex w-fit px-8 py-4 bg-gold text-black font-syne font-bold text-[0.9rem] tracking-widest"
-          >
-            Get Started →
-          </Link>
+          {cta && (
+            <Link
+              href={cta.url}
+              onClick={() => setOpen(false)}
+              className="mt-4 inline-flex w-fit px-8 py-4 bg-gold text-black font-syne font-bold text-[0.9rem] tracking-widest"
+            >
+              {cta.label}
+            </Link>
+          )}
         </div>
       )}
     </>

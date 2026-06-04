@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic'
-import Nav from '@/components/Nav'
+import NavWrapper from '@/components/NavWrapper'
 import Footer from '@/components/Footer'
 import MarqueeStrip from '@/components/MarqueeStrip'
 import Cursor from '@/components/Cursor'
@@ -11,67 +11,41 @@ export const revalidate = 60
 
 const ThreeCanvas = dynamic(() => import('@/components/ThreeCanvas'), { ssr: false })
 
-const SERVICES = [
-  {
-    num: '01', icon: '🧭', title: 'AI Strategy & Roadmapping',
-    desc: 'We audit your current operations, identify high-value AI opportunities, and build a phased transformation roadmap aligned to your commercial objectives.',
-    tags: ['Opportunity Assessment', 'ROI Modelling', 'Board Presentations'],
-  },
-  {
-    num: '02', icon: '⚙️', title: 'AI Implementation & Integration',
-    desc: 'Production-grade deployment of LLMs, ML pipelines, and automation systems — integrated with your existing tech stack and cloud infrastructure.',
-    tags: ['LLM Deployment', 'API Integration', 'MLOps'],
-  },
-  {
-    num: '03', icon: '🤖', title: 'Intelligent Process Automation',
-    desc: 'Replace manual, repetitive workflows with AI-powered automation — from document processing to customer service to back-office operations.',
-    tags: ['RPA + AI', 'Document AI', 'Workflow Design'],
-  },
-  {
-    num: '04', icon: '📊', title: 'Data Intelligence & Analytics',
-    desc: 'Transform raw data into decision-making power. We build data pipelines, predictive models, and executive dashboards that surface what matters.',
-    tags: ['Predictive Analytics', 'Data Engineering', 'BI Dashboards'],
-  },
-  {
-    num: '05', icon: '🎓', title: 'AI Training & Workforce Upskilling',
-    desc: 'Bespoke training programmes for executive teams, technical staff, and operations — ensuring your people can leverage and sustain AI tools effectively.',
-    tags: ['Executive Workshops', 'Technical Bootcamps', 'Change Management'],
-  },
-  {
-    num: '06', icon: '🛡️', title: 'AI Governance & Compliance',
-    desc: 'Navigate the evolving AI regulatory landscape — from UAE AI regulations to GDPR-adjacent frameworks — with policies, audits, and ethical AI frameworks.',
-    tags: ['Risk Assessment', 'Policy Design', 'Regulatory Mapping'],
-  },
-]
-
-const SECTORS = [
-  { icon: '🏦', name: 'Financial Services', desc: 'Credit scoring, fraud detection, regulatory reporting automation' },
-  { icon: '🏥', name: 'Healthcare', desc: 'Clinical AI, patient flow optimisation, diagnostic support' },
-  { icon: '🏗️', name: 'Infrastructure & Energy', desc: 'Predictive maintenance, asset management, demand forecasting' },
-  { icon: '🛒', name: 'Retail & FMCG', desc: 'Demand planning, personalisation, supply chain AI' },
-  { icon: '🏛️', name: 'Government & Public Sector', desc: 'Smart services, policy analytics, citizen experience AI' },
-  { icon: '🎓', name: 'Education', desc: 'Adaptive learning, institutional AI, workforce development' },
-  { icon: '📡', name: 'Telecoms & Media', desc: 'Churn prediction, content AI, network optimisation' },
-  { icon: '🚢', name: 'Logistics & Trade', desc: 'Route optimisation, customs AI, trade intelligence' },
-]
-
 export default async function Home() {
-  let showcases: any[] = []
-  try {
-    const supabase = await createClient()
-    const { data } = await (supabase.from('showcases') as any)
-      .select('*')
-      .eq('published', true)
-      .order('sort_order', { ascending: true })
-    showcases = data ?? []
-  } catch {
-    showcases = []
-  }
+  const supabase = await createClient()
+
+  const [
+    { data: textRows },
+    { data: statsData },
+    { data: servicesData },
+    { data: processData },
+    { data: whyData },
+    { data: sectorsData },
+    { data: showcasesData },
+  ] = await Promise.all([
+    (supabase.from('site_text') as any).select('key,value'),
+    (supabase.from('stats') as any).select('*').order('sort_order'),
+    (supabase.from('services') as any).select('*').eq('published', true).order('sort_order'),
+    (supabase.from('process_steps') as any).select('*').order('sort_order'),
+    (supabase.from('why_cards') as any).select('*').order('sort_order'),
+    (supabase.from('sectors') as any).select('*').order('sort_order'),
+    (supabase.from('showcases') as any).select('*').eq('published', true).order('sort_order'),
+  ])
+
+  const t: Record<string, string> = {}
+  ;(textRows ?? []).forEach((r: { key: string; value: string }) => { t[r.key] = r.value })
+
+  const stats = statsData ?? []
+  const services = servicesData ?? []
+  const steps = processData ?? []
+  const why = whyData ?? []
+  const sectors = sectorsData ?? []
+  const showcases = showcasesData ?? []
 
   return (
     <>
       <Cursor />
-      <Nav />
+      <NavWrapper />
 
       {/* HERO */}
       <section id="hero" className="relative h-screen min-h-[700px] flex items-center overflow-hidden">
@@ -80,24 +54,24 @@ export default async function Home() {
         <div className="relative z-20 px-6 md:px-12 max-w-[780px]">
           <div className="inline-flex items-center gap-3 text-gold text-[0.75rem] tracking-[0.2em] uppercase mb-8 font-medium">
             <span className="block w-8 h-px bg-gold" />
-            AI Consulting · UAE FZE · Global Reach
+            {t.hero_eyebrow ?? 'AI Consulting · UAE FZE · Global Reach'}
           </div>
           <h1 className="font-syne font-extrabold text-[clamp(3rem,6vw,5.2rem)] leading-[1.02] tracking-[-0.02em] mb-7 text-cream">
-            Elevate Your<br />
-            <span className="text-gold">Intelligence.</span>{' '}
+            {t.hero_headline_1 ?? 'Elevate Your'}<br />
+            <span className="text-gold">{t.hero_headline_accent ?? 'Intelligence.'}</span>{' '}
             <span className="block" style={{ WebkitTextStroke: '1px rgba(240,237,232,0.4)', color: 'transparent' }}>
-              Transform Your Future.
+              {t.hero_headline_outline ?? 'Transform Your Future.'}
             </span>
           </h1>
           <p className="text-muted text-[1.05rem] leading-[1.7] max-w-[520px] mb-12">
-            ELIV8 LYF FZE partners with forward-thinking organisations to deploy AI strategies that drive measurable outcomes — from automation to enterprise transformation.
+            {t.hero_subtext ?? ''}
           </p>
           <div className="flex gap-5 flex-wrap">
-            <Link href="/contact" className="inline-flex items-center gap-2.5 px-9 py-4 bg-gold text-black font-syne font-bold text-[0.9rem] tracking-[0.04em] transition-all hover:bg-gold-light hover:-translate-y-0.5">
-              Book a Consultation →
+            <Link href={t.hero_cta_primary_url ?? '/contact'} className="inline-flex items-center gap-2.5 px-9 py-4 bg-gold text-black font-syne font-bold text-[0.9rem] tracking-[0.04em] transition-all hover:bg-gold-light hover:-translate-y-0.5">
+              {t.hero_cta_primary_label ?? 'Book a Consultation →'}
             </Link>
-            <Link href="/services" className="inline-flex items-center gap-2.5 px-9 py-4 border border-white/[0.07] text-cream text-[0.9rem] tracking-[0.04em] transition-all hover:border-cream hover:-translate-y-0.5">
-              Our Services
+            <Link href={t.hero_cta_secondary_url ?? '/services'} className="inline-flex items-center gap-2.5 px-9 py-4 border border-white/[0.07] text-cream text-[0.9rem] tracking-[0.04em] transition-all hover:border-cream hover:-translate-y-0.5">
+              {t.hero_cta_secondary_label ?? 'Our Services'}
             </Link>
           </div>
         </div>
@@ -113,37 +87,26 @@ export default async function Home() {
       <section id="about" className="bg-off-black px-6 md:px-12 py-16 md:py-[120px] grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 items-center">
         <div>
           <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
-            <span className="block w-6 h-px bg-gold" />Who We Are
+            <span className="block w-6 h-px bg-gold" />{t.about_eyebrow ?? 'Who We Are'}
           </div>
           <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
-            AI-native consulting<br />for a new era of business
+            {t.about_headline ?? 'AI-native consulting for a new era of business'}
           </h2>
           <div className="grid grid-cols-2 gap-0.5 mt-12">
-            {[
-              { num: '50+', label: 'AI Projects Delivered' },
-              { num: '12+', label: 'Industry Sectors' },
-              { num: 'UAE', label: 'FZE · Global Operations' },
-              { num: '3×', label: 'Avg. ROI for Clients' },
-            ].map(s => (
-              <div key={s.label} className="bg-panel border border-white/[0.07] p-8">
-                <div className="font-syne font-extrabold text-[2.8rem] text-gold leading-none mb-2">{s.num}</div>
+            {stats.map((s: any) => (
+              <div key={s.id} className="bg-panel border border-white/[0.07] p-8">
+                <div className="font-syne font-extrabold text-[2.8rem] text-gold leading-none mb-2">{s.value_text}</div>
                 <div className="text-muted text-[0.82rem]">{s.label}</div>
               </div>
             ))}
           </div>
         </div>
         <div>
-          <p className="text-muted leading-[1.8] mb-5 text-[1rem]">
-            <strong className="text-cream font-medium">ELIV8 LYF FZE</strong> is an AI consulting firm incorporated in the UAE Free Zone, built to serve ambitious organisations across emerging and established markets.
-          </p>
-          <p className="text-muted leading-[1.8] mb-5">
-            We go beyond the buzzwords — delivering concrete AI roadmaps, production-ready systems, and the capability-building your teams need to sustain competitive advantage in an AI-first world.
-          </p>
-          <p className="text-muted leading-[1.8] mb-8">
-            Whether you&apos;re beginning your AI journey or scaling an existing function, we bring the architecture, expertise, and market sensitivity to make it real.
-          </p>
-          <Link href="/services" className="inline-flex items-center gap-2.5 px-9 py-4 bg-gold text-black font-syne font-bold text-[0.9rem] tracking-[0.04em] transition-all hover:bg-gold-light">
-            Explore Services →
+          {[t.about_body_1, t.about_body_2, t.about_body_3].filter(Boolean).map((p, i) => (
+            <p key={i} className="text-muted leading-[1.8] mb-5 text-[1rem]">{p}</p>
+          ))}
+          <Link href={t.about_cta_url ?? '/services'} className="inline-flex items-center gap-2.5 px-9 py-4 bg-gold text-black font-syne font-bold text-[0.9rem] tracking-[0.04em] transition-all hover:bg-gold-light mt-3">
+            {t.about_cta_label ?? 'Explore Services →'}
           </Link>
         </div>
       </section>
@@ -153,30 +116,27 @@ export default async function Home() {
         <div className="flex justify-between items-end mb-16 flex-wrap gap-6">
           <div>
             <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
-              <span className="block w-6 h-px bg-gold" />What We Do
+              <span className="block w-6 h-px bg-gold" />{t.services_eyebrow ?? 'What We Do'}
             </div>
             <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
-              End-to-end AI<br />consulting services
+              {t.services_headline ?? 'End-to-end AI consulting services'}
             </h2>
           </div>
           <p className="text-muted max-w-[320px] text-[0.9rem] leading-[1.7]">
-            From strategy through deployment — we cover the full AI value chain for your organisation.
+            {t.services_subtext ?? ''}
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-0.5">
-          {SERVICES.map(s => (
-            <div
-              key={s.num}
-              className="bg-panel border border-white/[0.07] p-12 relative overflow-hidden group transition-colors hover:border-gold/30"
-            >
+          {services.map((s: any) => (
+            <div key={s.id} className="bg-panel border border-white/[0.07] p-7 md:p-12 relative overflow-hidden group transition-colors hover:border-gold/30">
               <div className="absolute top-0 left-0 right-0 h-0.5 bg-gold scale-x-0 origin-left transition-transform duration-400 group-hover:scale-x-100" />
               <span className="absolute top-8 right-9 font-syne text-[0.7rem] text-muted tracking-[0.1em]">{s.num}</span>
               <div className="w-12 h-12 border border-white/[0.07] flex items-center justify-center mb-7 text-[1.4rem] bg-gold-dim">{s.icon}</div>
               <h3 className="font-syne font-bold text-[1.2rem] mb-4 text-cream">{s.title}</h3>
-              <p className="text-muted text-[0.88rem] leading-[1.75]">{s.desc}</p>
+              <p className="text-muted text-[0.88rem] leading-[1.75]">{s.description}</p>
               <div className="flex flex-wrap gap-2 mt-6">
-                {s.tags.map(t => (
-                  <span key={t} className="px-3 py-1 border border-white/[0.07] text-[0.7rem] tracking-[0.08em] text-muted uppercase">{t}</span>
+                {(s.tags ?? []).map((tag: string) => (
+                  <span key={tag} className="px-3 py-1 border border-white/[0.07] text-[0.7rem] tracking-[0.08em] text-muted uppercase">{tag}</span>
                 ))}
               </div>
             </div>
@@ -187,28 +147,20 @@ export default async function Home() {
       {/* PROCESS */}
       <section id="process" className="bg-off-black px-6 md:px-12 py-16 md:py-[120px]">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
-          <span className="block w-6 h-px bg-gold" />How We Work
+          <span className="block w-6 h-px bg-gold" />{t.process_eyebrow ?? 'How We Work'}
         </div>
         <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
-          Our engagement<br />methodology
+          {t.process_headline ?? 'Our engagement methodology'}
         </h2>
-        <div className="mt-18 flex flex-col">
-          {[
-            { num: '01', title: 'Discovery & Diagnosis', sub: 'Weeks 1–2', desc: 'We immerse in your business — mapping processes, data assets, team capabilities, and competitive landscape to identify where AI creates the most leverage.' },
-            { num: '02', title: 'Strategy & Architecture', sub: 'Weeks 2–4', desc: 'We deliver a clear AI roadmap with prioritised use cases, technical architecture recommendations, vendor assessments, and a business case your board can act on.' },
-            { num: '03', title: 'Build & Deploy', sub: 'Ongoing Sprints', desc: 'Agile delivery of AI solutions — from prototype to production. We embed with your team or operate independently, with full transparency at every stage.' },
-            { num: '04', title: 'Optimise & Scale', sub: 'Continuous', desc: 'Post-launch, we monitor performance, retrain models, and expand successful pilots — ensuring your AI investment compounds over time.' },
-          ].map((step, i, arr) => (
-            <div
-              key={step.num}
-              className={`grid grid-cols-1 md:grid-cols-[80px_1fr_1fr] gap-4 md:gap-12 items-start py-8 md:py-12 border-b border-white/[0.07] ${i === 0 ? 'border-t' : ''}`}
-            >
-              <div className="font-syne font-extrabold text-[3.5rem] text-white/[0.07] leading-none tracking-[-0.04em]">{step.num}</div>
+        <div className="mt-16 flex flex-col">
+          {steps.map((step: any, i: number) => (
+            <div key={step.id} className={`grid grid-cols-1 md:grid-cols-[80px_1fr_1fr] gap-4 md:gap-12 items-start py-8 md:py-12 border-b border-white/[0.07] ${i === 0 ? 'border-t' : ''}`}>
+              <div className="font-syne font-extrabold text-[3.5rem] text-white/[0.07] leading-none tracking-[-0.04em]">{step.step_num}</div>
               <div>
                 <div className="font-syne font-bold text-[1.4rem] text-cream mb-2">{step.title}</div>
-                <div className="text-gold text-[0.78rem] tracking-[0.1em] uppercase">{step.sub}</div>
+                <div className="text-gold text-[0.78rem] tracking-[0.1em] uppercase">{step.timeframe}</div>
               </div>
-              <div className="text-muted text-[0.9rem] leading-[1.75]">{step.desc}</div>
+              <div className="text-muted text-[0.9rem] leading-[1.75]">{step.description}</div>
             </div>
           ))}
         </div>
@@ -217,23 +169,18 @@ export default async function Home() {
       {/* WHY */}
       <section id="why" className="bg-black px-6 md:px-12 py-16 md:py-[120px]">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
-          <span className="block w-6 h-px bg-gold" />Why ELIV8 LYF
+          <span className="block w-6 h-px bg-gold" />{t.why_eyebrow ?? 'Why ELIV8 LYF'}
         </div>
         <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
-          Built different,<br />for complex markets
+          {t.why_headline ?? 'Built different, for complex markets'}
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-0.5 mt-16">
-          {[
-            { icon: '🌍', title: 'Emerging Market Expertise', desc: "We understand the infrastructure, regulatory, and cultural realities of African and Middle Eastern markets — not just Silicon Valley playbooks." },
-            { icon: '⚡', title: 'Speed to Value', desc: "No 12-month strategy decks. We move fast — delivering working prototypes and measurable outcomes within weeks, not quarters." },
-            { icon: '🔬', title: 'Technical Depth', desc: "Our consultants build what they recommend. No middlemen — just engineers and strategists who've shipped real AI systems at scale." },
-            { icon: '🏛️', title: 'UAE FZE Credibility', desc: "Incorporated in the UAE Free Zone — giving clients international contracting capability, regulatory clarity, and institutional confidence." },
-          ].map(w => (
-            <div key={w.title} className="bg-panel border border-white/[0.07] p-12 flex gap-7">
-              <div className="flex-shrink-0 w-13 h-13 bg-gold-dim border border-gold/30 flex items-center justify-center text-[1.4rem] w-[52px] h-[52px]">{w.icon}</div>
+          {why.map((w: any) => (
+            <div key={w.id} className="bg-panel border border-white/[0.07] p-8 md:p-12 flex gap-7">
+              <div className="flex-shrink-0 w-[52px] h-[52px] bg-gold-dim border border-gold/30 flex items-center justify-center text-[1.4rem]">{w.icon}</div>
               <div>
                 <h3 className="font-syne font-bold text-[1.05rem] mb-2.5 text-cream">{w.title}</h3>
-                <p className="text-muted text-[0.86rem] leading-[1.75]">{w.desc}</p>
+                <p className="text-muted text-[0.86rem] leading-[1.75]">{w.description}</p>
               </div>
             </div>
           ))}
@@ -243,29 +190,29 @@ export default async function Home() {
       {/* SECTORS */}
       <section id="sectors" className="bg-off-black px-6 md:px-12 py-16 md:py-[120px]">
         <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
-          <span className="block w-6 h-px bg-gold" />Industries
+          <span className="block w-6 h-px bg-gold" />{t.sectors_eyebrow ?? 'Industries'}
         </div>
-        <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">Sectors we serve</h2>
+        <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
+          {t.sectors_headline ?? 'Sectors we serve'}
+        </h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-0.5 mt-16">
-          {SECTORS.map(s => (
-            <div key={s.name} className="bg-panel border border-white/[0.07] p-9 transition-all hover:bg-gold-dim hover:border-gold/40 group">
+          {sectors.map((s: any) => (
+            <div key={s.id} className="bg-panel border border-white/[0.07] p-9 transition-all hover:bg-gold-dim hover:border-gold/40 group">
               <span className="text-[2rem] mb-4 block">{s.icon}</span>
               <div className="font-syne font-bold text-[0.95rem] text-cream mb-2 group-hover:text-gold transition-colors">{s.name}</div>
-              <div className="text-muted text-[0.78rem] leading-[1.6]">{s.desc}</div>
+              <div className="text-muted text-[0.78rem] leading-[1.6]">{s.description}</div>
             </div>
           ))}
         </div>
       </section>
 
       {/* AI IN ACTION */}
-      <section id="showcase" className="bg-black px-6 md:px-12 py-20 md:py-[120px]">
+      <section id="showcase" className="bg-black px-6 md:px-12 py-16 md:py-[120px]">
         <div className="max-w-[1100px] mx-auto">
           <div className="inline-flex items-center gap-3 text-gold text-[0.72rem] tracking-[0.2em] uppercase mb-5 font-medium">
             <span className="block w-6 h-px bg-gold" />AI in Action
           </div>
-          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">
-            What We&apos;ve Built
-          </h2>
+          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3.4rem)] leading-[1.08] tracking-[-0.02em] text-cream">What We&apos;ve Built</h2>
           <p className="text-muted text-[0.9rem] leading-[1.7] max-w-[480px] mt-5">
             Real AI products and experiences — apps, agents, and generative media — delivered for our clients.
           </p>
@@ -276,11 +223,13 @@ export default async function Home() {
       {/* CTA BAND */}
       <div className="bg-gold px-6 md:px-12 py-16 md:py-[100px] flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-10">
         <div>
-          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3rem)] text-black leading-tight">Ready to build your AI advantage?</h2>
-          <p className="text-black/65 mt-3 text-[1rem]">Book a no-obligation discovery call with our team.</p>
+          <h2 className="font-syne font-extrabold text-[clamp(2rem,4vw,3rem)] text-black leading-tight">
+            {t.cta_headline ?? 'Ready to build your AI advantage?'}
+          </h2>
+          <p className="text-black/65 mt-3 text-[1rem]">{t.cta_subtext ?? ''}</p>
         </div>
-        <Link href="/contact" className="inline-flex items-center gap-2.5 px-11 py-[18px] bg-black text-gold font-syne font-bold text-[0.95rem] tracking-[0.04em] flex-shrink-0 transition-colors hover:bg-off-black">
-          Start the Conversation →
+        <Link href={t.cta_button_url ?? '/contact'} className="inline-flex items-center gap-2.5 px-11 py-[18px] bg-black text-gold font-syne font-bold text-[0.95rem] tracking-[0.04em] flex-shrink-0 transition-colors hover:bg-off-black">
+          {t.cta_button_label ?? 'Start the Conversation →'}
         </Link>
       </div>
 
