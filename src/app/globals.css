@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+:root {
+  --black: #050608;
+  --off-black: #0c0d10;
+  --panel: #111318;
+  --border: rgba(255,255,255,0.07);
+  --gold: #c9a84c;
+  --gold-light: #e8c96a;
+  --gold-dim: rgba(201,168,76,0.15);
+  --white: #f0ede8;
+  --muted: rgba(240,237,232,0.45);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; overflow-x: hidden; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.admin-layout, .admin-layout * {
+  cursor: auto !important;
+}
+
+.admin-layout button, .admin-layout a, .admin-layout [role="button"] {
+  cursor: pointer !important;
+}
+
+/* Tiptap prose styling */
+.prose-tiptap h1 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800; margin: 2rem 0 1rem; color: #f0ede8; }
+.prose-tiptap h2 { font-family: 'Syne', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 2rem 0 0.75rem; color: #f0ede8; }
+.prose-tiptap h3 { font-family: 'Syne', sans-serif; font-size: 1.2rem; font-weight: 700; margin: 1.5rem 0 0.5rem; color: #f0ede8; }
+.prose-tiptap h4 { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 700; margin: 1.25rem 0 0.5rem; color: #f0ede8; }
+.prose-tiptap p { margin-bottom: 1.2rem; line-height: 1.8; color: rgba(240,237,232,0.72); font-size: 1.05rem; }
+.prose-tiptap ul, .prose-tiptap ol { margin: 0.75rem 0 1.25rem 1.5rem; }
+.prose-tiptap li { margin-bottom: 0.4rem; line-height: 1.75; color: rgba(240,237,232,0.72); font-size: 1.05rem; }
+.prose-tiptap a { color: #c9a84c; text-decoration: underline; text-underline-offset: 3px; }
+.prose-tiptap a:hover { color: #e8c96a; }
+.prose-tiptap strong { color: #f0ede8; font-weight: 600; }
+.prose-tiptap em { color: rgba(240,237,232,0.8); }
+
+/* Blockquote */
+.prose-tiptap blockquote {
+  border-left: 3px solid #c9a84c;
+  padding: 0.75rem 1.25rem;
+  color: rgba(240,237,232,0.6);
+  font-style: italic;
+  margin: 1.75rem 0;
+  background: rgba(201,168,76,0.05);
+  border-radius: 0 4px 4px 0;
+}
+
+/* Code */
+.prose-tiptap code { background: #111318; padding: 0.15em 0.45em; border-radius: 3px; font-size: 0.875em; color: #c9a84c; font-family: 'Courier New', monospace; }
+.prose-tiptap pre { background: #0c0d10; border: 1px solid rgba(255,255,255,0.07); padding: 1.25rem 1.5rem; border-radius: 6px; overflow-x: auto; margin: 1.75rem 0; }
+.prose-tiptap pre code { background: transparent; padding: 0; color: rgba(240,237,232,0.85); font-size: 0.9em; }
+
+/* Images */
+.prose-tiptap img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  margin: 2rem 0;
+  display: block;
+  loading: lazy;
+}
+
+/* Figure + caption */
+.prose-tiptap figure { margin: 2rem 0; }
+.prose-tiptap figcaption {
+  text-align: center;
+  color: rgba(240,237,232,0.4);
+  font-size: 0.82rem;
+  margin-top: 0.6rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Video / iframe embeds — forces 16:9 ratio */
+.prose-tiptap iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 6px;
+  margin: 2rem 0;
+  display: block;
+}
+
+/* Horizontal rule */
+.prose-tiptap hr { border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 2.5rem 0; }
